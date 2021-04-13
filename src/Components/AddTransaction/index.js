@@ -1,21 +1,21 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Menu from '../Menu';
 import Footer from '../Footer';
 import getCookie from '../../../src/UseCookie';
-import {Navbar, Nav, NavLink, Container, Row, Col, Jumbotron, Button} from 'react-bootstrap';
+import { Navbar, Nav, NavLink, Container, Row, Col, Jumbotron, Button } from 'react-bootstrap';
 
 
 
 const AddTransaction = () => {
 
     const [options, setOptions] = useState([]);
-    const [errorName, setErrorName]= useState("");
-    const [errorAmount, setErrorAmount]= useState("");
-    const [amount, setAmount]= useState("");
-    const [selectedBudget, setSelectedBudget]= useState("");
+    const [errorName, setErrorName] = useState("");
+    const [errorAmount, setErrorAmount] = useState("");
+    const [amount, setAmount] = useState("");
+    const [selectedBudget, setSelectedBudget] = useState("");
 
-    useEffect( () => {
+    useEffect(() => {
         async function loadBudgets() {
 
             var token = getCookie('x-auth-token')
@@ -26,29 +26,29 @@ const AddTransaction = () => {
             }
 
             fetch('http://localhost:63244/moneysaver/ReadBudgets', requestOptions)
-            .then(async response => {
-                
-                if (!response.ok) {
-                    // get error message from body or default to response status
-                    const error = response.status;
-                    
-                    return Promise.reject(error);
-                }
-                
-                if(response.ok){
-                    response.json().then((responseJson) => {
-                        //console.log(responseJson)
-                        let options = []
-                        options = responseJson.map(c => ({
-                            "value": c.id,
-                            "label": c.name
-                        }))
-                    console.log(options);
-                         setOptions(options);
-                    })
-                    //console.log("response.ok")
-                }
-            })
+                .then(async response => {
+
+                    if (!response.ok) {
+                        // get error message from body or default to response status
+                        const error = response.status;
+
+                        return Promise.reject(error);
+                    }
+
+                    if (response.ok) {
+                        response.json().then((responseJson) => {
+                            //console.log(responseJson)
+                            let options = []
+                            options = responseJson.map(c => ({
+                                "value": c.id,
+                                "label": c.name
+                            }))
+                            console.log(options);
+                            setOptions(options);
+                        })
+                        //console.log("response.ok")
+                    }
+                })
         }
         loadBudgets();
     }, []);
@@ -58,34 +58,34 @@ const AddTransaction = () => {
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-            body: JSON.stringify({ token: token , amount: amount, selectedBudget: selectedBudget })
+            body: JSON.stringify({ token: token, amount: amount, selectedBudget: selectedBudget })
         };
         console.log(requestOptions)
         event.preventDefault();
         fetch('http://localhost:63244/moneysaver/createtransaction', requestOptions)
-        .then(async response => {
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = response.status;
-                return Promise.reject(error);
-            }
-            if(response.ok){
-                response.json().then((responseJson) => {
-                    console.log("here")
-                    // if(responseJson.id === -1) {
-                    //     setErrorName("The Buget Name already exists!");
-                    // }
-                    // else{
-                    //     setErrorName("");
-                    // }
-                })
-                console.log("response.ok")
-            }
-        })
-        .catch(error => {
-            //this.setState({ errorMessage: error.toString() });
-            console.error('There was an error!', error);
-        });
+            .then(async response => {
+                if (!response.ok) {
+                    // get error message from body or default to response status
+                    const error = response.status;
+                    return Promise.reject(error);
+                }
+                if (response.ok) {
+                    response.json().then((responseJson) => {
+                        console.log("here")
+                        // if(responseJson.id === -1) {
+                        //     setErrorName("The Buget Name already exists!");
+                        // }
+                        // else{
+                        //     setErrorName("");
+                        // }
+                    })
+                    console.log("response.ok")
+                }
+            })
+            .catch(error => {
+                //this.setState({ errorMessage: error.toString() });
+                console.error('There was an error!', error);
+            });
     }
 
     const changeAmount = (event) => {
@@ -93,7 +93,7 @@ const AddTransaction = () => {
     }
 
     const validateAmount = () => {
-        
+
     }
 
     const changeBudget = (event) => {
@@ -102,32 +102,20 @@ const AddTransaction = () => {
     }
 
     return (
-        <div>
-            <Menu/>
-        <br/>
-        <Container>  
-                    <Row>
-                            <Col></Col>
-                            <Col md={ 8 }>
-                                <Jumbotron>
-                                    <form onSubmit={handleSubmit}>
-                                        <input type="number" onChange= {changeAmount} onBlur={validateAmount}></input>
-                                        <span>{errorAmount}</span>
-                                        <select field="Budget" onChange={changeBudget}>
-                                            {options.map(option =>
-                                            <option key={option.value} value={option.value}>{option.label}</option>)}
-                                        </select>
-                                        <span>{errorName}</span>
-                                        <Button variant="success" type="submit">Add Transaction</Button>
-                                    </form>
-                                </Jumbotron>
-                            </Col>
-                            <Col></Col>
-                    </Row>
+        <Container>
+            <form className="form" onSubmit={handleSubmit}>
+                <input type="number" onChange={changeAmount} onBlur={validateAmount}></input>
+                <span>{errorAmount}</span>
+                <select field="Budget" onChange={changeBudget}>
+                    {options.map(option =>
+                        <option key={option.value} value={option.value}>{option.label}</option>)}
+                </select>
+                <span>{errorName}</span>
+                <Button variant="success" type="submit">Add Transaction</Button>
+            </form>
         </Container>
-            <Footer/>
-        </div>)
-    }
+    )
+}
 
 
 export default AddTransaction;

@@ -4,11 +4,7 @@ import Footer from '../Footer';
 
 const Transaction = () => {
     return (
-        <div>
-            <Menu/>
             <h1>Your Transactions</h1>
-            <Footer/>
-        </div>
     )
 }
 

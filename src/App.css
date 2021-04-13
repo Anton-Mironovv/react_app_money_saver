@@ -1,35 +1,79 @@
-.navbar{
-  text-align: center;
-  background-color: rgb(163, 216, 54);
-  text-align: end;
+.navbar {
+    text-align: center;
+    background-color: rgb(163, 216, 54);
+    text-align: end;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100vh;
 }
 
 .moneySaverLogo {
-  background-image: url(./moneySaverLogo.png);
-  background-size: cover;
-  width: 110px;
-  height: 80px;
+    background-image: url(./moneySaverLogo.png);
+    background-size: cover;
+    width: 110px;
+    height: 80px;
 }
 
 a {
-  color: #FFF;
+    color: #FFF;
+    text-decoration: none;
 }
+
 a:hover {
-   color: black;
+    color: black;
 }
 
-label{
-  background-color: ghostwhite;
+#guestInfo {
+    text-align: center;
 }
 
-#guestInfo{
-  text-align: center;
+#gdpr {
+    color: blue;
 }
 
-#gdpr{
-  color: blue;
+#familyBusiness {
+    color: blueviolet;
 }
 
-#familyBusiness{
-  color: blueviolet;
+table {
+    margin: auto;
+}
+
+#root {
+    height: 100vh;
+}
+
+.form {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
+}
+
+.form>* {
+    margin-top: 10px;
+}
+
+.form input {
+    padding: 5px;
+    text-indent: 5px;
+}
+
+.form select {
+    padding: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    align-self: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(40, 167, 69);
+    border: none;
+    border-radius: 3px;
+    margin: 10px;
 }

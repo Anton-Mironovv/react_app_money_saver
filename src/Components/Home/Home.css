@@ -1,0 +1,14 @@
+.home-table {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.home-table>tbody tr:first-child {
+    background-color: rgb(163, 216, 54);
+    color: rgb(255,255, 255)
+}
+
+.home-table td {
+    border: 1px solid rgb(0, 0, 0);
+    padding: 10px 25px;
+}

@@ -1,5 +1,4 @@
 .navigation {
-    width: 100%;
     height: 10vh;
     background-color: rgb(163, 216, 54);
     color: white;
@@ -11,18 +10,12 @@
 #menuItems {
     display: flex;
     list-style-type: none;
-}
-
-li {
-    padding-right: 45px;
+    justify-content: space-around;
 }
 
 #menuItems li {
-    float: left;
-    list-style: none;
     text-align: center;
     background-color: #53c028;
-    margin-right: 75px;
     width: 150px;
     line-height: 60px;
     text-decoration: none;

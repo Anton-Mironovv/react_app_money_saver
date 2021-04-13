@@ -5,7 +5,6 @@ import Footer from '../Footer';
 const GuestHome = () => {
     return(
         <div id="guestInfo">
-            <Menu/>
             <h1><i><u>Welcome to the Money Saver World</u></i></h1>
 
             <p>Create you account <i>now</i> for observing how your transactions affect the family or the business budget.</p>
@@ -15,7 +14,6 @@ const GuestHome = () => {
             <div>Thank you for joining the Money Saver App</div>
 
             <p>Our team is sticktly following the <a id="gdpr" href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">GDPR</a> rules</p>
-            <Footer/>
         </div>
     )
 }
