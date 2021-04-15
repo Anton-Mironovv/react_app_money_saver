@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Menu from '../Menu';
 import Footer from '../Footer';
 import { Navbar, Nav, NavLink, Container, Row, Col, Jumbotron, Button } from 'react-bootstrap';
@@ -18,14 +18,14 @@ const CreateBudget = () => {
 
             const promise = await fetch('http://localhost:63244/moneysaver/GetTransactionCategories')
             const categories = await promise.json()
-            let options = []
-            options = categories.map(c => ({
+            let serverOptions = []
+            serverOptions = categories.map(c => ({
                 "value": c.id,
                 "label": c.type
             }))
-            console.log(options);
+            let options = [{"value": "", "label": "Select category"}, ...serverOptions];
+            
             setOptions(options);
-
         }
         loadCategories();
     }, []);
@@ -55,7 +55,6 @@ const CreateBudget = () => {
         fetch('http://localhost:63244/moneysaver/createbudget', requestOptions)
             .then(async response => {
                 if (!response.ok) {
-                    // get error message from body or default to response status
                     const error = response.status;
                     return Promise.reject(error);
                 }
@@ -72,7 +71,6 @@ const CreateBudget = () => {
                 }
             })
             .catch(error => {
-                //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
             });
     }
@@ -84,10 +82,13 @@ const CreateBudget = () => {
     return (
         <Container>
             <form className='form' onSubmit={handleSubmit}>
-                <input type="text" onChange={changeName}></input>
-                <input type="number" onChange={changeAmount} onBlur={validateAmount}></input>
+                <label for="budgetName">Budget Name: </label>
+                <input type="text" id="budgetName" onChange={changeName}></input>
+                <label for="amount">Amount: </label>
+                <input type="number" id="amount" onChange={changeAmount} onBlur={validateAmount}></input>
                 <span>{errorAmount}</span>
-                <select field="Category" onChange={changeCategory}>
+                <label for="category">Category: </label>
+                <select field="Category" id="category" onChange={changeCategory}>
                     {options.map(option =>
                         <option key={option.value} value={option.value}>{option.label}</option>)}
                 </select>

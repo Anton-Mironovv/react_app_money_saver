@@ -4,6 +4,7 @@ import Menu from '../Menu';
 import Footer from '../Footer';
 import getCookie from '../../../src/UseCookie';
 import { Navbar, Nav, NavLink, Container, Row, Col, Jumbotron, Button } from 'react-bootstrap';
+import {useHistory} from "react-router-dom";
 
 
 
@@ -14,6 +15,7 @@ const AddTransaction = () => {
     const [errorAmount, setErrorAmount] = useState("");
     const [amount, setAmount] = useState("");
     const [selectedBudget, setSelectedBudget] = useState("");
+    const history = useHistory();
 
     useEffect(() => {
         async function loadBudgets() {
@@ -37,16 +39,14 @@ const AddTransaction = () => {
 
                     if (response.ok) {
                         response.json().then((responseJson) => {
-                            //console.log(responseJson)
-                            let options = []
-                            options = responseJson.map(c => ({
+                            let serverOptions = []
+                            serverOptions = responseJson.map(c => ({
                                 "value": c.id,
                                 "label": c.name
                             }))
-                            console.log(options);
+                            let options = [{"value": "", "label": "Select category"}, ...serverOptions];
                             setOptions(options);
                         })
-                        //console.log("response.ok")
                     }
                 })
         }
@@ -60,30 +60,21 @@ const AddTransaction = () => {
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
             body: JSON.stringify({ token: token, amount: amount, selectedBudget: selectedBudget })
         };
-        console.log(requestOptions)
         event.preventDefault();
         fetch('http://localhost:63244/moneysaver/createtransaction', requestOptions)
             .then(async response => {
                 if (!response.ok) {
-                    // get error message from body or default to response status
                     const error = response.status;
                     return Promise.reject(error);
                 }
                 if (response.ok) {
                     response.json().then((responseJson) => {
-                        console.log("here")
-                        // if(responseJson.id === -1) {
-                        //     setErrorName("The Buget Name already exists!");
-                        // }
-                        // else{
-                        //     setErrorName("");
-                        // }
+                        history.push("/Transactions")
                     })
                     console.log("response.ok")
                 }
             })
             .catch(error => {
-                //this.setState({ errorMessage: error.toString() });
                 console.error('There was an error!', error);
             });
     }
@@ -104,9 +95,11 @@ const AddTransaction = () => {
     return (
         <Container>
             <form className="form" onSubmit={handleSubmit}>
-                <input type="number" onChange={changeAmount} onBlur={validateAmount}></input>
+                <label for="amount">Amount: </label>
+                <input type="number" id="amount" onChange={changeAmount} onBlur={validateAmount}></input>
                 <span>{errorAmount}</span>
-                <select field="Budget" onChange={changeBudget}>
+                <label for="budget">Budget: </label>
+                <select field="Budget" id="budget" onChange={changeBudget}>
                     {options.map(option =>
                         <option key={option.value} value={option.value}>{option.label}</option>)}
                 </select>

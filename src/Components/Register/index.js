@@ -18,13 +18,13 @@ const Register = () => {
     const [passwordRepeatError, setPasswordRepeatError] = useState('')
     const history = useHistory()
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
         const values = { username, email, password, passwordRepeat, setUsernameError, setPasswordError }
-        await registerUser(values);
+         registerUser(values);
     }
 
-    const registerUser = async (data) => {
+    const registerUser = (data) => {
         const { username, password, email, setUsernameError, setPasswordError } = data;
         const requestOptions = {
             method: 'POST',

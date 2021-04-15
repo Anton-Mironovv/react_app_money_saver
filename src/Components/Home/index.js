@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import getCookie from '../../UseCookie';
+import {useHistory} from "react-router-dom"
 
 const Home = () => {
     const [budgets, setBudgets] = useState([]);
@@ -18,7 +19,6 @@ const Home = () => {
                 .then(async response => {
 
                     if (!response.ok) {
-                        // get error message from body or default to response status
                         const error = response.status;
 
                         return Promise.reject(error);
@@ -26,13 +26,11 @@ const Home = () => {
 
                     if (response.ok) {
                         response.json().then((responseJson) => {
-                            setBudgets(responseJson)
+                            setBudgets(responseJson);
                         })
-                        //console.log("response.ok")
                     }
                 })
                 .catch(error => {
-                    //this.setState({ errorMessage: error.toString() });
                     console.error('There was an error!', error);
                 });
         }
@@ -42,10 +40,11 @@ const Home = () => {
     return (
         <table className="home-table">
             <tbody>
-                <tr><td>Category</td><td>Amount</td></tr>
+                <tr><td>Budget Name</td><td>Category</td><td>Amount</td></tr>
 
                 {budgets.map((budget, index) =>
                     <tr key={index}>
+                        <td>{budget.name}</td>
                         <td>{budget.categoryName}</td>
                         <td>{budget.amount}</td>
                     </tr>
