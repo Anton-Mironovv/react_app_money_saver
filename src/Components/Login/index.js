@@ -2,11 +2,8 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { Row, Col, Container, Button, Jumbotron } from 'react-bootstrap';
 import { UserContext } from '../../UserContext';
-import Menu from '../../Components/Menu'
-//import useAuth from '../../Hooks/useAuth';
-//import Styles from './index.module.css'
+import Menu from '../../Components/Menu';
 const Login = () => {
-    //const { loginUser, error } = useAuth();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const { user, setUser } = useContext(UserContext);
@@ -47,7 +44,7 @@ const Login = () => {
             }
         })
             .catch((error) => {
-                //setError("Invalid username or password.")
+                console.log(error)
             });
     }
 
