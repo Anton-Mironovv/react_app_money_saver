@@ -4,6 +4,7 @@ import Menu from '../Menu';
 import Footer from '../Footer';
 import { Navbar, Nav, NavLink, Container, Row, Col, Jumbotron, Button } from 'react-bootstrap';
 import getCookie from '../../../src/UseCookie';
+import {useHistory} from "react-router-dom";
 
 const CreateBudget = () => {
     const [options, setOptions] = useState([]);
@@ -12,6 +13,7 @@ const CreateBudget = () => {
     const [name, setName] = useState("");
     const [errorName, setErrorName] = useState("");
     const [errorAmount, setErrorAmount] = useState("");
+    const history = useHistory();
 
     useEffect(() => {
         async function loadCategories() {
@@ -67,7 +69,7 @@ const CreateBudget = () => {
                             setErrorName("");
                         }
                     })
-                    console.log("response.ok")
+                    history.push("/Home")
                 }
             })
             .catch(error => {
