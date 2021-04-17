@@ -1,13 +1,9 @@
-import React, { useState, useContext } from 'react'
-import { useHistory } from "react-router-dom"
-import { Input, Row, Col, Container, Button, Jumbotron } from 'react-bootstrap'
-import Menu from '../../Components/Menu'
-//import Styles from './index.module.css'
-//import useAuth from '../../Hooks/useAuth';
-//import {validateUsername, validateEmail, validatePassword, validatePasswordRepeat} from '../../Utils/validator.js'
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { Input, Row, Col, Container, Button, Jumbotron } from 'react-bootstrap';
+import Menu from '../../Components/Menu';
 
 const Register = () => {
-    //const { registerUser, error } = useAuth();
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -66,11 +62,6 @@ const Register = () => {
                 <input type='password' id="password" value={password} onChange={e => setPassword(e.target.value)}></input>
                 <label for="repeatPassword">Repeat Password: </label>
                 <input type='password' id="repeatPassword" value={passwordRepeat} onChange={e => setPasswordRepeat(e.target.value)} ></input>
-                {/* <Row>
-                                        <Col sm={{size: 8, order: 2, offset: 2}}>
-                                            <p className={[Styles.passwordInfo]}>*Password must be at least 6 characters long, must contain at least one upper case letter and one digit.</p>
-                                        </Col>
-                                    </Row> */}
                 <Button variant="success" type="submit">Register</Button>
             </form>
         </Container>
